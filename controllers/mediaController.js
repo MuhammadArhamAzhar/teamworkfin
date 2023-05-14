@@ -9,9 +9,22 @@ exports.getAll = async (req, res) => {
     res.status(400).json(error);
     }
 };
+exports.getFew = async (req, res) => {
+    const { topicid, fieldid } = req.query;
+    console.log({topicid}, {fieldid})
+
+    try {
+    const media = await Media.find({topicid,fieldid});
+    console.log({media})
+    res.json(media);
+    } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+    }
+};
   // Backendurl/public/videos/file_name.mp4
 exports.create = async (req, res) => {
-    const { name } = req.body;
+    const { name, topicid, fieldid } = req.body;
     let videosPaths = [];
 
     if (Array.isArray(req.files.videos) && req.files.videos.length > 0) {
@@ -22,7 +35,7 @@ exports.create = async (req, res) => {
 
     try {
     const createdMedia = await Media.create({
-        name,
+        name, topicid, fieldid,
         videos: videosPaths,
     });
 

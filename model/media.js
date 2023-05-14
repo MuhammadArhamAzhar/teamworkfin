@@ -5,6 +5,14 @@ const MediaSchema= new mongoose.Schema({
         type: String,
         required:true,
     },
+    topicid:{
+        type: String,
+        required:true,
+    },
+    fieldid:{
+        type: String,
+        required:true,
+    },
     videos:  [{type:String}],
 },
 {

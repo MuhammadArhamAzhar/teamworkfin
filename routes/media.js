@@ -41,7 +41,7 @@ const router=express.Router();
 // get all media api
 // UPLOADING VIDEO
 router.get("/all",mediaController.getAll);
-
+router.get("/few",mediaController.getFew);
 // POST API
 router.post("/create",upload.fields([
     {

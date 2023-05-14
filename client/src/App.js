@@ -10,13 +10,33 @@ import React,{ useState,useEffect } from 'react';
 const App=()=> {
 
   const [medias, setMedias] = useState([])
-  useEffect(()=>{
-getAllMedias();
-  },[])
-  const getAllMedias=() =>
+  const [fewMedia, setfewmedia] = useState([])
+
+  useEffect(()=>
   {
-axios.get(`${BACKEND_URI}/api/v1/media/all`).then(result => {
-setMedias(result.data)
+    //getAllMedias();
+    getfewMedia();
+  },[])
+
+const getAllMedias=() =>
+  {
+    axios.get(`${BACKEND_URI}/api/v1/media/all`).then(result => {
+    setMedias(result.data)
+}).catch(error =>
+  {
+setMedias([]);
+ console.log(error)
+ alert("error yaara");
+  });
+  
+  }
+  
+  const getfewMedia=() =>
+  {
+    axios.get(`${BACKEND_URI}/api/v1/media/few?topicid=${localStorage.getItem("topicid")}&fieldid=${localStorage.getItem("fieldid")}`).then(result => 
+      {
+    console.log(result.data)
+      setfewmedia(result.data)
 }).catch(error =>
   {
 setMedias([]);
@@ -47,11 +67,12 @@ setMedias([]);
         align:'left',
           border: "2px solid black",
       }}>
+         <div className="card-body"><UploadList medias={fewMedia}/></div>
           <div className="card-body"><UploadList medias={medias}/></div>
-        </div> </div>
-
-        
-          <div><h1>Arham Azhar</h1></div>
+          <div> This is specific video data</div>
+         
+        </div>
+         </div>   
         
     </div>
     </>
