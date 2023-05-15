@@ -5,11 +5,21 @@ const MediaSchema= new mongoose.Schema({
         type: String,
         required:true,
     },
-    topicid:{
+    topicIdMedia:{
         type: String,
         required:true,
     },
-    fieldid:{
+    fieldIdMedia:{
+        type: String,
+        required:true,
+    },
+    topicNameMedia:
+    {
+        type: String,
+        required:true,
+    },
+    fieldNameMedia:
+    {
         type: String,
         required:true,
     },
