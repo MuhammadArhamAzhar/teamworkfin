@@ -3,7 +3,7 @@ const cors= require ('cors');
 const mongoose = require ("mongoose");
 const path= require("path")
 const app = express ();
-
+const {deleteQuestionByField} = require("./deletequiz")
 app.use(cors());
 const mediaRoutes = require ('./routes/media');
 const { UUID } = require("bson");
@@ -23,7 +23,15 @@ console. log ("Connected to mongodb");
 mongoose.connection.on("error", (err) => {
 console. log ("Error connecting to mongo", err);
 });
+app.post('/deleteWebinar', async (req, res) => {
+  console.log("working")
+  const { field, value } = req.query;
+  console.log({field}, {value})
 
+ deleteQuestionByField(field,value);
+
+ //console.log("delted")
+});
 app.listen (4000, () => {
 console.log("App is running on PORT 4000"); 
 });

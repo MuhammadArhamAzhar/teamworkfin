@@ -10,11 +10,10 @@ exports.getAll = async (req, res) => {
     }
 };
 exports.getFew = async (req, res) => {
-    const {name, topicIdMedia, fieldIdMedia, topicNameMedia, fieldNameMedia} = req.query;
-    console.log({topicIdMedia}, {fieldNameMedia})
-
+    const {fieldIdMedia} = req.query;
+    
     try {
-    const media = await Media.find({topicIdMedia,fieldIdMedia});
+    const media = await Media.find({fieldIdMedia});
     console.log({media})
     res.json(media);
     } catch (error) {
