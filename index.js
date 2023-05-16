@@ -2,6 +2,8 @@ const express = require ("express");
 const cors= require ('cors');
 const mongoose = require ("mongoose");
 const path= require("path")
+const fs = require('fs');
+const Media = require('./model/media')
 const app = express ();
 const {deleteQuestionByField} = require("./deletequiz")
 app.use(cors());
@@ -26,9 +28,28 @@ console. log ("Error connecting to mongo", err);
 app.post('/deleteWebinar', async (req, res) => {
   console.log("working")
   const { field, value } = req.query;
+  fieldname = field;
+  valuefield = value;
   console.log({field}, {value})
+  const video = await Media.findOne({ field: value});
+  const filePath= video.videos[0];
+ //deleteQuestionByField(field,value);
+ 
 
- deleteQuestionByField(field,value);
+//const filePath = path.join(__dirname, 'public', 'upload', value);
+const path = require('path');
+const convertedPath = path.join(path.sep, ...filePath.split('/'));
+ const filePathnew= path.join(__dirname,  convertedPath)
+ console.log(filePathnew);
+ 
+fs.unlink(filePathnew, (err) => {
+  if (err) {
+    console.error('Error deleting file:', err);
+  } else {
+    console.log('File deleted successfully');
+  }
+});
+
 
  //console.log("delted")
 });
